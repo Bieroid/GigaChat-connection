@@ -1,10 +1,9 @@
 package main
 
 import (
-	"connection/comand"
-	"connection/service"
+	"chat/comand"
+	"chat/service"
 	"crypto/tls"
-	"fmt"
 	"net/http"
 	"os"
 	"github.com/joho/godotenv"
@@ -16,7 +15,6 @@ func main() {
 
 	err := godotenv.Load()
 	if err != nil {
-		fmt.Println("Ошибка при загрузке .env файла")
 		return
 	}
 	
@@ -24,8 +22,8 @@ func main() {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := &http.Client{Transport: transport}
+
 	authKey := os.Getenv("AUTH_KEY")
-	fmt.Println(authKey)
 	tokenURL := "https://ngw.devices.sberbank.ru:9443/api/v2/oauth"
 	tokenService := service.NewTokenService(authKey, tokenURL, client)
 

@@ -36,7 +36,7 @@ type gigaChatResponse struct {
 	Choices []choice `json:"choices"`
 }
 
-func getBody(userMessage string) []byte {
+func createRequestBody(userMessage string) []byte {
 	requestBody := map[string]interface{}{
 		"model":    "GigaChat",
 		"messages": []map[string]string{{"role": "user", "content": userMessage}},
@@ -52,11 +52,12 @@ func getBody(userMessage string) []byte {
 }
 
 func (g *GigaChatService) SendRequestAndGetResponse(userMessage, reqUid string) (responseFromGigaChat string, err error) {
-	if err = g.tokenFromService.GetAccessToken(); err != nil {
+	err = g.tokenFromService.GetAccessToken()
+	if err != nil {
 		return
 	}
 
-	body := getBody(userMessage)
+	body := createRequestBody(userMessage)
 	if body == nil {
 		return "", errors.New("ошибка при формировании тела запроса")
 	}

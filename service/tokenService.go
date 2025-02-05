@@ -70,7 +70,8 @@ func (t *TokenService) GetAccessToken() (err error) {
 		return
 	}
 
-	if err := t.CreateNewToken(); err != nil {
+	err = t.CreateNewToken()
+	if err != nil {
 		return errors.New("ошибка при получении нового токена")
 	}
 

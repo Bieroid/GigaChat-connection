@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"connection/service"
+	"chat/service"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"net/http"
